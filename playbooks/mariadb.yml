@@ -1,0 +1,56 @@
+# This playbook install the MariaDB SQL server (https://mariadb.org/).
+#
+# Copyright (c) 2016 Roman Martin
+#
+# Licensed under CC BY 3.0. All rights reserved.
+#
+# Based on a playbook by https://github.com/fabaff/fedora-ansible/blob/master/tasks/mariadb.yml
+---
+- hosts: all
+  tasks:
+    - name: Install MariaDB Server
+      yum: name=mariadb-server state=latest
+    - name: Start MariaDB
+      service: name=mariadb state=started enabled=yes
+    - name: Install MariaDB
+      yum: name=mariadb state=latest
+    - name: Install the Python MySQLB module
+      yum: name=MySQL-python state=latest
+    - name: set the sql root password
+      mysql_user: name=root
+                  password={{ ansible_local.opennebula.system.ansible_db_password }}
+                  host=localhost 
+    - name: config for easy access as root user
+      template: src=../files/my-cnf.j2
+                dest=/root/.my.cnf	
+    - name: delete anonymous sql server user for {{ ansible_hostname }}
+      mysql_user: user=""
+                  host="{{ ansible_hostname }}"
+                  state="absent"
+    - name: delete anonymous sql server user for localhost
+      mysql_user: user=""
+                  state="absent"
+    - name: secure the sql root user for ipv6 localhost (::1)
+      mysql_user: user="root"
+                  password="{{ ansible_local.opennebula.system.ansible_db_password }}"
+                  host="::1"
+    - name: secure the sql root user for ipv4 localhost (127.0.0.1)
+      mysql_user: user="root"
+                  password="{{ ansible_local.opennebula.system.ansible_db_password }}"
+                  host="127.0.0.1"
+    - name: secure the sql root user for localhost domain (localhost)
+      mysql_user: user="root"
+                  password="{{ ansible_local.opennebula.system.ansible_db_password }}"
+                  host="localhost"
+    - name: secure the sql root user for {{ ansible_hostname }} domain
+      mysql_user: user="root"
+                  password="{{ ansible_local.opennebula.system.ansible_db_password }}"
+                  host="{{ ansible_hostname }}"
+    - name: remove the mysql test database
+      mysql_db: db=test
+                state=absent
+    - name: create the wordpress database
+      mysql_db: db=wordpress
+                state=present
+    - name: create wpadmin user with grant privileges on wordpress database
+      mysql_user: name=wpadmin password={{ ansible_local.opennebula.system.ansible_wordpressdb_password }} priv=wordpress.*:ALL,GRANT state=present
