@@ -1,0 +1,28 @@
+- name: Install ntp packages
+  yum: name={{ item }} state=present
+  with_items:
+    - ntp
+    - ntpdate
+
+- name: Add servers to config
+  lineinfile: dest=/etc/ntp.conf line="server {{ item }} iburst"
+  with_items: "{{ base_ntp_servers | default() }}"
+  notify: Restart ntp
+  when: ansible_os_family != "RedHat" and ansible_distribution_major_version != "7"
+
+- name: Add servers to config in EL7
+  template: src=ntp.conf.el7.j2 dest=/etc/ntp.conf owner=root group=root mode=0644
+  notify: Restart ntp
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+- name: Add servers to config in EL6
+  template: src=ntp.conf.el6.j2 dest=/etc/ntp.conf owner=root group=root mode=0644
+  notify: Restart ntp
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+
+- name: Disable VMware-tools timesync
+  shell: 'vmware-toolbox-cmd timesync disable'
+  when: ansible_virtualization_type == 'VMware'
+
+- name: Ensure ntp is started
+  service: name=ntpd state=started
