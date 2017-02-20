@@ -1,12 +1,12 @@
 # Añadir Grupo operaciones SD
 - group:
-    name: operaciones
+    name: Creating operaciones group
     gid: 668
     state: present
 
 # Añadir el usuario 'operador' con el uid 668, crear home, shell en /bin/bash miembro del grupo operaciones y con clave ssh
 - user:    
-    name: operador
+    name: Creating operador user 
     uid: 668
     group: operaciones
     createhome: yes
