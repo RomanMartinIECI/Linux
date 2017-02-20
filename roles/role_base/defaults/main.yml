@@ -1,7 +1,7 @@
 ---
 # defaults file for role-base
 
-base_config_repos: yes
+#base_config_repos: yes
 
 base_dns_servers:
   - 127.0.0.1
@@ -23,14 +23,14 @@ base_extra_packages:
   - net-tools
 
 # Repositories
-base_repos:
-  - name: 'core_ol6_u5_base'
-    description: 'Oracle Linux 6 Update 5 media copy (x86_64)'
-    baseurl: 'http://10.228.136.97/linux_distributions/Oracle/Linux/OL6/5/base/x86_64/'
-    file: 'core-oel6'
-    enabled: 'yes'
-    distribution: 'OracleLinux'
-    release: '6.5'
+#base_repos:
+#  - name: 'core_ol6_u5_base'
+#    description: 'Oracle Linux 6 Update 5 media copy (x86_64)'
+#    baseurl: 'http://10.228.136.97/linux_distributions/Oracle/Linux/OL6/5/base/x86_64/'
+#    file: 'core-oel6'
+#    enabled: 'yes'
+#    distribution: 'OracleLinux'
+#    release: '6.5'
 
 
 
