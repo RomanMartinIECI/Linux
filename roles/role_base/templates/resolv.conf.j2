@@ -1,0 +1,11 @@
+{% if base_dns_server is defined %}
+{% for item in base_dns_server %}
+nameserver {{ item }} iburst
+{% endfor %}
+{% endif %}
+{% if base_dns_search is defined %}
+{% endif %}
+search {{ base_dns_search }}
+{% if base_dns_domain is defined %}
+domain {{ base_dns_domain }}
+{% endif %}
