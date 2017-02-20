@@ -33,3 +33,11 @@
   yum: name={{ item }}
   with_items: "{{ base_extra_packages | default() }}"
   when: base_extra_packages is defined
+
+- name: Configure group and user
+  include: groups_users.yml
+  when: base_operacion_password is defined
+  
+- name: Set operacion password
+  user: name='operador' password={{ base_operacion_password | password_hash('sha512') }} update_password=always
+  when: base_operacion_password is defined
