@@ -6,8 +6,8 @@ base_config_repos: yes
 base_dns_servers:
   - 127.0.0.1
  # - 8.8.4.4
-base_dns_search: 'vmdemo.dom'
-base_dns_domain: 'vmdemo.dom'
+base_dns_search: 'sp.securitasdirect.local securitasdirect.local'
+base_dns_domain: 'securitasdirect.local'
 
 base_timezone: 'Europe/Madrid'
 
