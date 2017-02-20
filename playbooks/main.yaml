@@ -1,0 +1,5 @@
+---
+- name: Playbook for role base
+  hosts: all
+  roles:
+    - { role: role_base }
