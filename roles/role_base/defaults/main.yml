@@ -3,34 +3,34 @@
 
 base_config_repos: yes
 
-#base_dns_servers:
-#  - 8.8.8.8
-#  - 8.8.4.4
-#base_dns_search: 'domain1.com domain2.net'
-#base_dns_domain: 'domain.com'
+base_dns_servers:
+  - 127.0.0.1
+ # - 8.8.4.4
+base_dns_search: 'vmdemo.dom'
+base_dns_domain: 'vmdemo.dom'
 
-#base_timezone: 'Europe/Madrid'
+base_timezone: 'Europe/Madrid'
 
-#base_ntp_servers:
-#  - hora.roa.es
+base_ntp_servers:
+  - hora.roa.es
 
 #base_swap_size: 16384
 #base_swap_mem: 8192
 
-#base_extra_packages:
-#  - sysstat
-#  - telnet
-#  - net-tools
+base_extra_packages:
+  - sysstat
+  - telnet
+  - net-tools
 
 # Repositories
 base_repos:
-  - name: 
-    description: 
-    baseurl:
-    file: '
-    enabled:
-    distribution: 
-    release: 
+  - name: 'core_ol6_u5_base'
+    description: 'Oracle Linux 6 Update 5 media copy (x86_64)'
+    baseurl: 'http://10.228.136.97/linux_distributions/Oracle/Linux/OL6/5/base/x86_64/'
+    file: 'core-oel6'
+    enabled: 'yes'
+    distribution: 'OracleLinux'
+    release: '6.5'
 
 
 
