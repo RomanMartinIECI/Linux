@@ -3,7 +3,7 @@
 
 base_config_repos: yes
 
-base_operador_password: Temporal123
+base_operacion_password: Temporal123
 
 base_dns_servers:
   - 127.0.0.1
