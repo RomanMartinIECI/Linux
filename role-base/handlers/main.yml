@@ -1,0 +1,5 @@
+---
+# handlers file for role-base
+
+- name: Restart ntp
+  service: name=ntpd state=restarted

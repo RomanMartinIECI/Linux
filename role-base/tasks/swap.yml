@@ -1,0 +1,16 @@
+- name: Get swap device
+  shell: 'grep swap /etc/fstab | cut -f 1 -d " "'
+  register: swapdev
+
+- name: Disable swap device
+  shell: 'swapoff {{ swapdev.stdout }}'
+
+- name: Modify swap size
+  shell: 'lvresize -L {{ base_swap_size }}M -f {{ swapdev.stdout }}'
+  ignore_errors: yes
+
+- name: Format swap device
+  shell: 'mkswap {{ swapdev.stdout }}'
+
+- name: Enable swap device
+  shell: 'swapon {{ swapdev.stdout }}'

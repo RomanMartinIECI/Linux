@@ -1,0 +1,10 @@
+- name: Add yum repositories
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgcheck: no
+    enabled: "{{ item.enabled }}"
+    file: "{{ item.file }}"
+  with_items: "{{ base_repos | default() }}"
+  when: ansible_distribution == "{{ item.distribution }}" and ( ansible_distribution_major_version == "{{ item.version | default(omit) }}" or ansible_distribution_version == "{{ item.release | default(omit) }}" )
