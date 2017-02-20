@@ -5,9 +5,9 @@
   template: src=resolv.conf.j2 dest=
   when: base_dns_servers is defined
 
-- name: Configure repositories
-  include: repos.yml
-  when: base_config_repos
+#- name: Configure repositories
+#  include: repos.yml
+#  when: base_config_repos
 
 - name: Set time zone
   timezone: name={{ base_timezone }}
